@@ -16,14 +16,15 @@
 import tkinter as tk
 from tkinter import ttk
 import calendar
+from datetime import datetime
 
 class CalendarApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Calendar")
 
-        self.year_var = tk.IntVar(value = 2024)
-        self.month_var = tk.IntVar(value = 7)
+        self.year_var = tk.IntVar(value = datetime.now().year)
+        self.month_var = tk.IntVar(value = datetime.now().month)
 
         self.create_widgets()
         self.show_calendar()
