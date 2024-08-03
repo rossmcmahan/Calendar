@@ -3,8 +3,10 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
         <title>Calendar</title>
-        <style>
+<!--        <style>
             table {
                 width: 100%;
                 border-collapse: collapse;
@@ -14,10 +16,30 @@
                 text-align: center;
                 border: 1px solid #ddd;
             	}
-        </style>
+        </style>-->
     </head>
     <body>
-        <h1>Calendar for {{ year }}-{{ month }}</h1>
+        <div class="container">
+            <h1 class="mt-4">Calendar for {{ year }}-{{ month }}</h1>
+            <form method="POST" class="form-inline my-4">
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="year" class="sr-only">Year</label>
+                    <input type="number" class="form-control" id="year" name="year" value="{{ year }}" placeholder="Year">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="month" class="sr-only">Month</label>
+                    <input type="number" class="form-control" id="month" name="month" value="{{ month }}" placeholder="Month">
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Show Calendar</button>
+            </form>
+            <div class="calendar">
+                {{ calendar|safe }}
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="httos://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2./js/bootstrap.min.js"></script>
+       <!-- <h1>Calendar for {{ year }}-{{ month }}</h1>
         <form method="POST">
             <label for="year">Year:</label>
             <input type="number" id="year" name="year" value="{{ year }}">
@@ -27,6 +49,6 @@
         </form>
         <div>
             {{ calendar|safe }}
-        </div>
+        </div>-->
     </body>
 </html>
