@@ -1,54 +1,56 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-        <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
-        <title>Calendar</title>
-<!--        <style>
-            table {
-                width: 100%;
-                border-collapse: collapse;
-                }
-            th, td {
-                padding: 10px;
-                text-align: center;
-                border: 1px solid #ddd;
-            	}
-        </style>-->
-    </head>
-    <body>
-        <div class="container">
-            <h1 class="mt-4">Calendar for {{ year }}-{{ month }}</h1>
-            <form method="POST" class="form-inline my-4">
-                <div class="form-group mx-sm-3 mb-2">
-                    <label for="year" class="sr-only">Year</label>
-                    <input type="number" class="form-control" id="year" name="year" value="{{ year }}" placeholder="Year">
-                </div>
-                <div class="form-group mx-sm-3 mb-2">
-                    <label for="month" class="sr-only">Month</label>
-                    <input type="number" class="form-control" id="month" name="month" value="{{ month }}" placeholder="Month">
-                </div>
-                <button type="submit" class="btn btn-primary mb-2">Show Calendar</button>
-            </form>
-            <div class="calendar">
-                {{ calendar|safe }}
-            </div>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+    <title>Calendar</title>
+    <style>
+      .selected-day {
+        background-color: yellow !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="mt-4">Calendar for {{ year }}-{{ month }}</h1>
+      <form id="calendar-form" method="POST" class="form-inline my-4">
+        <div class="form-group mx-sm-3 mb-2">
+          <label for="year" class="sr-only">Year</label>
+          <input type="number" class="form-control" id="year" name="year" value="{{ year }}" placeholder="Year">
         </div>
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="httos://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2./js/bootstrap.min.js"></script>
-       <!-- <h1>Calendar for {{ year }}-{{ month }}</h1>
-        <form method="POST">
-            <label for="year">Year:</label>
-            <input type="number" id="year" name="year" value="{{ year }}">
-            <label for="month">Month:</label>
-            <input type="number" id="month" name="month" value="{{ month }}">
-            <button type="submit">Show Calendar</button>
-        </form>
-        <div>
-            {{ calendar|safe }}
-        </div>-->
-    </body>
+        <div class="form-group mx-sm-3 mb-2">
+          <label for="month" class="sr-only">Month</label>
+          <input type="number" class="form-control" id="month" name="month" value="{{ month }}" placeholder="Month">
+        </div>
+        <input type="hidden" id="day" name="day" value="{{ day }}">
+        <button type="submit" class="btn btn-primary mb-2">Show Calendar</button>
+      </form>
+      <div class="calendar">
+        {{ calendar|safe }}
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll(".calendar td").forEach(function(td) {
+          if (td.innerHTML.trim() !== "" && !isNaN(td.innerHTML.trim())) {
+            td.style.cursor = "pointer";
+            td.addEventListener("click", function() {
+              document.getElementById("day").value = this.innerHTML.trim();
+              document.querySelectorAll(".calendar td.selected-day").forEach(function(day) {
+                day.classList.remove("selected-day");
+              });
+              this.classList.add("selected-day");
+
+              document.getElementById("calendar-form").submit();
+            });
+          }
+        });
+      });
+    </script>
+  </body>
 </html>
