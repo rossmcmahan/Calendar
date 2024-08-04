@@ -33,6 +33,20 @@
     </div>
     <div class="container">
       <h1 class="mt-4">Tasks for {{ year }}-{{ month }}-{{ day }}</h1>
+      <u1 id="task-list">
+        {% for task in tasks %}
+          <li>{{ task }}</li>
+        {% endfor %}
+      </u1>
+      <form id="task-form" method="POST" class="form-inline">
+        <input type="hidden" name="year" value="{{ year }}">
+        <input type="hidden" name="month" value="{{ month }}">
+        <input type="hidden" name="day" value="{{ day }}">
+        <div class="form-group mx-sm-3 mb-2">
+          <input type="text" class="form-control" id="task" name="task" placeholder="New Task">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Add Task</button>
+        </form>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
