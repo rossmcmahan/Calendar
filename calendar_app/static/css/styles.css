@@ -38,3 +38,7 @@ th {
 .selected-day {
   background-color: yellow;
 }
+
+.btn-sm {
+  margin-left: 10px;
+}

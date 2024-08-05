@@ -24,6 +24,12 @@ def index():
 			if task_date not in tasks:
 				tasks[task_date] = []
 			tasks[task_date].append(task)
+		elif 'delete_task' in request.form:
+			task_to_delete = request.form.get('delete_task')
+			if task_date in tasks:
+				tasks[task_date].remove(task_to_delete)
+				if not tasks[task_date]:
+					del tasks[task_date]
 
 	cal = calendar.HTMLCalendar(calendar.SUNDAY)
 	month_calendar = cal.formatmonth(year, month)
