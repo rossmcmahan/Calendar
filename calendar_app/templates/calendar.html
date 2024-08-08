@@ -39,7 +39,8 @@
               <input type="hidden" name="year" value="{{ year }}">
               <input type="hidden" name="month" value="{{ month }}">
               <input type="hidden" name="day" value="{{ day }}">
-              <button type="submit" calss="btn btn-danger btn-sm">Delete</button>
+              <input type="hidden" name="delete_task" value="{{ task }}">
+              <button type="submit" class="btn btn-danger btn-sm delete-task-btn">Delete</button>
             </form>
           </li>
         {% endfor %}
@@ -57,30 +58,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        const selectedDay = document.getElementById("day").value;
-        if (selectedDay) {
-          document.querySelectorAll(".calendar td").forEach(function(td) {
-            if (td.innerHTML.trim() === selectedDay) {
-              td.classList.add("selected-day");
-            }
-          });
-        }
-        document.querySelectorAll(".calendar td").forEach(function(td) {
-          if (td.innerHTML.trim() !== "" && !isNaN(td.innerHTML.trim())) {
-            td.style.cursor = "pointer";
-            td.addEventListener("click", function() {
-              document.getElementById("day").value = this.innerHTML.trim();
-              document.querySelectorAll(".calendar td.selected-day").forEach(function(day) {
-                day.classList.remove("selected-day");
-              });
-              this.classList.add("selected-day");
-              document.getElementById("calendar-form").submit();
-            });
-          }
-        });
-      });
-    </script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
   </body>
 </html>
