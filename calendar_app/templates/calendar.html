@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+<!--    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">-->
     <title>Calendar</title>
     <style>
       .selected-day {
@@ -15,7 +15,8 @@
   <body>
     <div class="container">
       <h1 class="mt-4">Calendar for {{ year }}-{{ month }}</h1>
-      <form id="calendar-form" method="POST" class="form-inline my-4">
+      <a href="{{ url_for('logout') }}" class="btn btn-danger mb-2">Logout</a>
+      <form method="POST" class="form-inline my-4">
         <div class="form-group mx-sm-3 mb-2">
           <label for="year" class="sr-only">Year</label>
           <input type="number" class="form-control" id="year" name="year" value="{{ year }}" placeholder="Year">
@@ -35,7 +36,7 @@
       <u1 id="task-list">
         {% for task in tasks %}
           <li>{{ task }}
-            <form method="POST" style="display-inline;">
+            <form method="POST" style="display:inline;">
               <input type="hidden" name="year" value="{{ year }}">
               <input type="hidden" name="month" value="{{ month }}">
               <input type="hidden" name="day" value="{{ day }}">
@@ -45,13 +46,14 @@
           </li>
         {% endfor %}
       </u1>
-      <form id="task-form" method="POST" class="form-inline">
+      <form method="POST">
+        <div class="form-group">
+          <label for="task">New Task</label>
+          <input type="text" class="form-control" id="task" name="task" placeholder="Enter Task">
+        </div>
         <input type="hidden" name="year" value="{{ year }}">
         <input type="hidden" name="month" value="{{ month }}">
         <input type="hidden" name="day" value="{{ day }}">
-        <div class="form-group mx-sm-3 mb-2">
-          <input type="text" class="form-control" id="task" name="task" placeholder="New Task">
-        </div>
         <button type="submit" class="btn btn-primary mb-2">Add Task</button>
       </form>
     </div>
