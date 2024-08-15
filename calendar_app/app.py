@@ -18,6 +18,11 @@ class User(UserMixin):
 		self.id = id
 		self.username = username
 		self.password = password
+users = {
+    "1": User(id = "1",
+              username = "debug_user",
+              password = "debug_password")
+}
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -55,6 +60,7 @@ def logout():
 	return redirect(url_for('login'))
 
 @app.route('/', methods=['GET', 'POST'])
+@login_required
 def index():
 	now = datetime.datetime.now()
 	year = now.year
